@@ -1,0 +1,11 @@
+# Ignorar archivos generados por el compilador
+bin/
+obj/
+
+# Ignorar archivos de configuración local
+*.suo
+*.user
+*.sln.docstates
+
+# Ignorar archivos de cache
+*.cache
