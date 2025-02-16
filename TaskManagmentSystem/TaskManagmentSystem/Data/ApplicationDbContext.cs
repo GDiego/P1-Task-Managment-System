@@ -1,11 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TaskManagmentSystem.Models;
 
 namespace TaskManagmentSystem.Data
 {
-    public class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
 
-        public DbSet<Task> Tasks { get; set; }
+        public DbSet<Models.Task> Tasks { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            // Configuraciones adicionales si es necesario
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskManagmentSystem.Data;
+using Task = TaskManagmentSystem.Models.Task;
 
 namespace TaskManagmentSystem.Controllers
 {
