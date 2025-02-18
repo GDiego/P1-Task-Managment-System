@@ -1,35 +1,73 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import './App.css';
+import { getTasks, createTask, deleteTask, updateTask } from './api';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState([]);
+  const [newTask, setNewTask] = useState('');
+  const [newDescription, setNewDescription] = useState('');
+
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  const loadTasks = async () => {
+    const data = await getTasks();
+    setTasks(data);
+  };
+
+  const handleAddTask = async () => {
+    if (!newTask.trim() || !newDescription.trim()) return;
+    await createTask({ name: newTask, description: newDescription, completed: false });
+    setNewTask('');
+    setNewDescription('');
+    loadTasks();
+  };
+
+  const handleDeleteTask = async (id) => {
+    await deleteTask(id);
+    loadTasks();
+  };
+
+  const handleToggleTask = async (id, completed) => {
+    await updateTask(id, { completed: !completed });
+    loadTasks();
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div style={{ padding: '20px' }}>
+      <h1>Task Manager</h1>
+      <input
+        type="text"
+        placeholder="New task"
+        value={newTask}
+        onChange={(e) => setNewTask(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Description"
+        value={newDescription}
+        onChange={(e) => setNewDescription(e.target.value)}
+      />
+      <button onClick={handleAddTask}>Add</button>
+      <ul>
+        {tasks.map((task) => (
+          <li key={task.id} style={{ display: 'flex', gap: '10px' }}>
+            <span
+              style={{
+                textDecoration: task.completed ? 'line-through' : 'none',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleToggleTask(task.id, task.completed)}
+            >
+              {task.name} - {task.description}
+            </span>
+            <button onClick={() => handleDeleteTask(task.id)}>❌</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-export default App
+export default App;
