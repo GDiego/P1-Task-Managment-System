@@ -20,7 +20,7 @@ namespace TaskManagmentSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Task>>> GetTasks()
         {
-            return await _context.Tasks.ToListAsync();
+            return await _context.Tasks.Where(t => t.IsDeleted == false).ToListAsync(); // Filtro de Task Activas
         }
 
         // GET: api/Tasks/5
@@ -96,6 +96,24 @@ namespace TaskManagmentSystem.Controllers
         private bool TaskExists(int id)
         {
             return _context.Tasks.Any(e => e.Id == id);
+        }
+
+        // PUT: api/Tasks/softdelete/5
+        [HttpPut("softdelete/{id}")]
+        public async Task<IActionResult> softDeleteTask(int id)
+        {
+            var task = await _context.Tasks.FindAsync(id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                task.IsDeleted = true;
+                await _context.SaveChangesAsync();
+                return NoContent();
+            };
         }
     }
 }

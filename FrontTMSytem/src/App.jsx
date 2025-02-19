@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import { getTasks, createTask, deleteTask, updateTask } from './api';
+import { getTasks, createTask, softDeleteTask, updateTask } from './api';
 
 import { Card, CardContent } from "./components/ui/card";
 import { Button } from "./components/ui/button";
@@ -33,7 +33,7 @@ function App() {
   };
 
   const handleDeleteTask = async (id) => {
-    await deleteTask(id);
+    await softDeleteTask(id);
     loadTasks();
   };
 
