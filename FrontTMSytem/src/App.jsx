@@ -32,11 +32,6 @@ function App() {
     loadTasks();
   };
 
-  const handleDeleteTask = async (id) => {
-    await softDeleteTask(id);
-    loadTasks();
-  };
-
   const handleToggleTask = async (id, completed) => {
     await updateTask(id, { completed: !completed });
     loadTasks();
@@ -54,6 +49,13 @@ function App() {
     setNewTaskName('');
     setNewTaskDescription('');
     loadTasks();
+  };
+
+  const handleDeleteTask = async (id) => {
+    if (window.confirm("Are you sure you want to delete this task?")) {
+      await softDeleteTask(id);
+      loadTasks();
+    }
   };
 
   return (
