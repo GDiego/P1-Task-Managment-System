@@ -4,11 +4,9 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["TaskManagmentSystem/TaskManagmentSystem.csproj", "TaskManagmentSystem/"]
-RUN dotnet restore "TaskManagmentSystem/TaskManagmentSystem.csproj"
-
-COPY . .
-WORKDIR "/src/TaskManagmentSystem"
+COPY TaskManagmentSystem TaskManagmentSystem
+WORKDIR /src/TaskManagmentSystem
+RUN dotnet restore
 RUN dotnet publish -c Release -o /app/publish --no-restore
 
 FROM base AS final
