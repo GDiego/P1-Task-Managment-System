@@ -3,8 +3,8 @@ import './App.css';
 import { getTasks, createTask, softDeleteTask, updateTask } from './api';
 
 import { Card, CardContent } from "./components/ui/Card";
-import { Button } from "./components/ui/button";
-import { Input } from "./components/ui/input";
+import { Button } from "./components/ui/Button";
+import { Input } from "./components/ui/Input";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "./components/ui/table";
 
 function App() {
