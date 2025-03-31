@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 using TaskManagmentSystem.Data;
 
 namespace TaskManagmentSystem
@@ -12,8 +13,13 @@ namespace TaskManagmentSystem
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            // Obtener cadena de conexión desde variables de entorno
+            var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION")
+                                   ?? builder.Configuration.GetConnectionString("DefaultConnection");
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(connectionString));
+
             builder.Services.AddControllers();
 
             builder.Services.AddCors(options =>

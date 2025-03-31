@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://localhost:7066/api/Tasks';
+const API_URL = 'https://p1-task-managment-system.onrender.com/api/Tasks';
 
 export const getTasks = async () => {
   const response = await axios.get(API_URL);
