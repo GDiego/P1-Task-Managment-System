@@ -5,7 +5,7 @@ import { getTasks, createTask, softDeleteTask, updateTask } from './api';
 import { Card, CardContent } from "./components/ui/Card";
 import { Button } from "./components/ui/Button";
 import { Input } from "./components/ui/Input";
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "./components/ui/table";
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "./components/ui/Table";
 
 function App() {
   const [tasks, setTasks] = useState([]);
