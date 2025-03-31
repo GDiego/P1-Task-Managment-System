@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import { getTasks, createTask, softDeleteTask, updateTask } from './api';
 
-import { Card, CardContent } from "./components/ui/card";
+import { Card, CardContent } from "./components/ui/Card";
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "./components/ui/table";
